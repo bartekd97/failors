@@ -6,7 +6,7 @@ public class Item : MonoBehaviour
 {
     public float speed = 1.0f;
     public List<Faculty> possibleFaculties;
-    public int scoreReward = 10;
+    public int scoreReward = 1;
 
     public void Update()
     {
