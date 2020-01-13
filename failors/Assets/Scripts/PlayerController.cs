@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    const float SPEED_SMOOTHING = 0.75F;
+    const float SPEED_SMOOTHING = 0.5F;
     
     [Serializable]
     public class ShipType
@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public List<ShipType> availableShipTypes;
-    public float moveSpeed = 0.5f;
+    public float moveSpeed = 800.0f;
 
     public Faculty currentShipFaculty { get; private set; }
 
@@ -62,10 +62,7 @@ public class PlayerController : MonoBehaviour
         float targetSpeed = Input.acceleration.x * moveSpeed;
         currentSpeed = currentSpeed * SPEED_SMOOTHING + (1f - SPEED_SMOOTHING) * targetSpeed;
 
-        //testing delta time instead
-        rb.velocity = Vector2.right * currentSpeed * Time.fixedTime;
-
-        //rb.velocity = Vector2.right * currentSpeed * Time.deltaTime;
+        rb.velocity = Vector2.right * currentSpeed * Time.fixedDeltaTime;
     }
 
     [SerializeField]
