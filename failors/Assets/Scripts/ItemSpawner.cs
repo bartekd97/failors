@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    public float spawnTime = 2.5f;
+    public float basicSpawnTime = 2.5f;
     public float minX = -2.3f;
     public float maxY = 2.3f;
     public float startY = 5.7f;
     //public float minSpeed = 0.5f;
     //public float maxSpeed = 1.5f;
-    public float itemsSpeed = 1.0f;
+    public float itemsSpeed = 0.9f;
+
+    public float spawnTimeFactor = 0.99f;
+
 
     [SerializeField]
-    private float itemsSpeedModifier = 0.1f;
+    private float itemsSpeedModifier = 0.035f;
 
     [SerializeField]
     private GameObject spawnedItemsContainer;
 
     public List<GameObject> itemPrefabs;
 
+    float nextSpawnTime;
+
     public void StartSpawningItems()
     {
-        InvokeRepeating("SpawnNextItem", spawnTime, spawnTime);
+        nextSpawnTime = basicSpawnTime;
+        Invoke("SpawnNextItem", nextSpawnTime);
     }
 
     void SpawnNextItem()
@@ -36,11 +42,14 @@ public class ItemSpawner : MonoBehaviour
         item.speed = itemsSpeed;
 
         spawned.transform.parent = spawnedItemsContainer.transform;
+
+        nextSpawnTime *= spawnTimeFactor;
+        Invoke("SpawnNextItem", nextSpawnTime);
     }
 
     public void StopSpawningItems()
     {
-        CancelInvoke();
+        CancelInvoke("SpawnNextItem");
 
         int spawnedItems = spawnedItemsContainer.transform.childCount;
 

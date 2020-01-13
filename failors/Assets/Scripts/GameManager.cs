@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
 
         hearts[health].SetActive(false);
 
+        Vibration.Vibrate(200);
+
         CheckDeathCondition();
     }
 

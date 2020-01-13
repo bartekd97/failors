@@ -2776,12 +2776,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93300dbe2950fe84d8f4c67b1d61d4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 2.5
+  basicSpawnTime: 2.5
   minX: -2.3
   maxY: 2.3
   startY: 5.7
-  itemsSpeed: 1
-  itemsSpeedModifier: 0.1
+  itemsSpeed: 0.9
+  spawnTimeFactor: 0.99
+  itemsSpeedModifier: 0.035
   spawnedItemsContainer: {fileID: 943207930}
   itemPrefabs:
   - {fileID: 4315301677712131803, guid: d8e46d9c7ebd03345a77a513a0fccaf8, type: 3}
