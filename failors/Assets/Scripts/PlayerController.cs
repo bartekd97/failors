@@ -63,10 +63,16 @@ public class PlayerController : MonoBehaviour
     {
         if (!GameManager.instance.IsPaused())
         {
+            rb.simulated = true;
+
             float targetSpeed = Input.acceleration.x * moveSpeed;
             currentSpeed = currentSpeed * SPEED_SMOOTHING + (1f - SPEED_SMOOTHING) * targetSpeed;
 
             rb.velocity = Vector2.right * currentSpeed * Time.fixedDeltaTime;
+        }
+        else
+        {
+            rb.simulated = false;
         }
     }
 
