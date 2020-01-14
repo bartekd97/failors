@@ -33,17 +33,20 @@ public class ItemSpawner : MonoBehaviour
 
     void SpawnNextItem()
     {
-        itemsSpeed += itemsSpeedModifier;
+        if (!GameManager.instance.IsPaused())
+        {
+            itemsSpeed += itemsSpeedModifier;
 
-        GameObject prefab = itemPrefabs[Random.Range(0,itemPrefabs.Count)];
-        float spawnX = Random.Range(minX, maxY);
-        GameObject spawned = Instantiate(prefab, new Vector3(spawnX, startY, 0.0f), Quaternion.identity);
-        Item item = spawned.GetComponent<Item>();
-        item.speed = itemsSpeed;
+            GameObject prefab = itemPrefabs[Random.Range(0, itemPrefabs.Count)];
+            float spawnX = Random.Range(minX, maxY);
+            GameObject spawned = Instantiate(prefab, new Vector3(spawnX, startY, 0.0f), Quaternion.identity);
+            Item item = spawned.GetComponent<Item>();
+            item.speed = itemsSpeed;
 
-        spawned.transform.parent = spawnedItemsContainer.transform;
+            spawned.transform.parent = spawnedItemsContainer.transform;
 
-        nextSpawnTime *= spawnTimeFactor;
+            nextSpawnTime *= spawnTimeFactor;
+        }
         Invoke("SpawnNextItem", nextSpawnTime);
     }
 

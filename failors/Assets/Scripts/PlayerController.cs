@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -55,14 +56,18 @@ public class PlayerController : MonoBehaviour
                     MoveTypeRight();
             }
         }
+        */
     }
 
     private void FixedUpdate()
     {
-        float targetSpeed = Input.acceleration.x * moveSpeed;
-        currentSpeed = currentSpeed * SPEED_SMOOTHING + (1f - SPEED_SMOOTHING) * targetSpeed;
+        if (!GameManager.instance.IsPaused())
+        {
+            float targetSpeed = Input.acceleration.x * moveSpeed;
+            currentSpeed = currentSpeed * SPEED_SMOOTHING + (1f - SPEED_SMOOTHING) * targetSpeed;
 
-        rb.velocity = Vector2.right * currentSpeed * Time.fixedDeltaTime;
+            rb.velocity = Vector2.right * currentSpeed * Time.fixedDeltaTime;
+        }
     }
 
     [SerializeField]
@@ -72,8 +77,11 @@ public class PlayerController : MonoBehaviour
     private Image nextShip;
 
 
-    void MoveTypeLeft()
+    public void MoveTypeLeft()
     {
+        if (GameManager.instance.IsPaused())
+            return;
+
         currentShipIndex--;
 
         if (currentShipIndex < 0)
@@ -89,8 +97,11 @@ public class PlayerController : MonoBehaviour
         //spriteRenderer.sprite = availableShipTypes[currentShipIndex].sprite;
     }
 
-    void MoveTypeRight()
+    public void MoveTypeRight()
     {
+        if (GameManager.instance.IsPaused())
+            return;
+
         currentShipIndex++;
 
         if (currentShipIndex >= availableShipTypes.Count)

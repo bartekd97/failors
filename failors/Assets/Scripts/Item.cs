@@ -10,6 +10,7 @@ public class Item : MonoBehaviour
 
     public void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        if (!GameManager.instance.IsPaused())
+            transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
 }

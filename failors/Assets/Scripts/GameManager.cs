@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         SetPlayersHealth();
+        Vibration.HasVibrator(); // initialize Vibration static class;
     }
 
     #region Player's Health
@@ -29,6 +30,19 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Animator leftSide, rightSide;
+
+
+    [SerializeField]
+    private bool isPaused = false;
+    public void SetPaused(bool paused)
+    {
+        isPaused = paused;
+    }
+    public bool IsPaused()
+    {
+        return isPaused;
+    }
+
 
     private void SetPlayersHealth()
     {
@@ -50,7 +64,8 @@ public class GameManager : MonoBehaviour
     {
         if(health <= 0)
         {
-            playerController.enabled = false;
+            //playerController.enabled = false;
+            SetPaused(true);
 
             gameOverMenuAnimator.SetTrigger("Show");
             leftSide.SetTrigger("Hide");
