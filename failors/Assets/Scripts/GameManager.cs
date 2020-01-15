@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
 
     public int score = 0;
 
+    private bool gameplayActive = false;
+    private bool gameOverMenuActive = false;
+
+    public bool GameplayActive { get => gameplayActive; set => gameplayActive = value; }
+    public bool GameOverMenuActive { get => gameOverMenuActive; set => gameOverMenuActive = value; }
+
     private void Awake()
     {
         instance = this;
@@ -55,7 +61,13 @@ public class GameManager : MonoBehaviour
 
         hearts[health].SetActive(false);
 
-        Vibration.Vibrate(200);
+        if(PlayerPrefs.HasKey("Vibrations"))
+        {
+            if(PlayerPrefs.GetInt("Vibrations") == 1)
+                Vibration.Vibrate(200);
+        }
+        else
+            Vibration.Vibrate(200);
 
         CheckDeathCondition();
     }
@@ -68,10 +80,13 @@ public class GameManager : MonoBehaviour
             SetPaused(true);
 
             gameOverMenuAnimator.SetTrigger("Show");
+            gameOverMenuActive = true;
             leftSide.SetTrigger("Hide");
             rightSide.SetTrigger("Hide");
 
             itemSpawner.StopSpawningItems();
+
+            gameplayActive = false;
 
             CheckPlayerScore();
             ShowPlayerScore();
@@ -131,6 +146,29 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString();
         highestScoreText.text = PlayerPrefs.GetInt("HighestScore").ToString();
     }
+
+    #endregion
+
+    #region Vibrations
+
+    public void ChangeVibrationSettings()
+    {
+        if (PlayerPrefs.HasKey("Vibrations"))
+        {
+            if (PlayerPrefs.GetInt("Vibrations") == 0)
+            {
+                PlayerPrefs.SetInt("Vibrations", 1);
+                Vibration.Vibrate(200);
+            }
+            else
+                PlayerPrefs.SetInt("Vibrations", 0);
+        }
+        else
+            PlayerPrefs.SetInt("Vibrations", 0);
+
+        PlayerPrefs.Save();
+    }
+
 
     #endregion
 }
