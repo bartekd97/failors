@@ -547,7 +547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -674,7 +674,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140845854}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -704,8 +704,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 90ce513957e2c77409930b3bf7bdc897, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 2d45f49fa5ec44244ae969d216ac4c92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -745,11 +745,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableShipTypes:
   - faculty: 0
-    sprite: {fileID: 21300000, guid: 90ce513957e2c77409930b3bf7bdc897, type: 3}
+    sprite: {fileID: 21300000, guid: 2d45f49fa5ec44244ae969d216ac4c92, type: 3}
   - faculty: 1
-    sprite: {fileID: 21300000, guid: b7a005771ca2d6e4e9080cbaa817516b, type: 3}
+    sprite: {fileID: 21300000, guid: cd14f0ffa3ac13146bea59e73b02ce1d, type: 3}
   - faculty: 2
-    sprite: {fileID: 21300000, guid: a090e0ecc2b57f84eb2caf3e0bb3e7a2, type: 3}
+    sprite: {fileID: 21300000, guid: 2be6ef7b3443eda4cb0eea95ae7d039c, type: 3}
   moveSpeed: 800
   previousShip: {fileID: 131250204}
   nextShip: {fileID: 1525762947}
@@ -4638,7 +4638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5774,7 +5774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1977047771
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6477,7 +6477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2091163736
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7031,7 +7031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &8321614793396365489
 MeshFilter:
   m_ObjectHideFlags: 0
