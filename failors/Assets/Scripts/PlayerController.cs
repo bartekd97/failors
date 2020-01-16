@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
         public Faculty faculty;
         public Sprite sprite;
     }
-
+    [SerializeField]
+    private ChangeBackground backgroundChanger;
     public List<ShipType> availableShipTypes;
     public float moveSpeed = 800.0f;
 
@@ -123,15 +124,19 @@ public class PlayerController : MonoBehaviour
         //spriteRenderer.sprite = availableShipTypes[currentShipIndex].sprite;
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Item item = collision.gameObject.GetComponent<Item>();
-
+        
         if (item != null)
         {
             if (item.possibleFaculties.Contains(currentShipFaculty))
+            {
                 GameManager.instance.score += item.scoreReward;
+                if (GameManager.instance.score % 10 == 0)
+                    backgroundChanger.ChangeBckg();
+
+            }
             else
                 GameManager.instance.LoseHp();
 
