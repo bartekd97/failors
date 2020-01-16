@@ -2781,12 +2781,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19757068c1c53b243b1e5d9e1f8f46b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animTime: 2
   backgroundList:
-  - {fileID: 960096478}
-  - {fileID: 2091163735}
-  - {fileID: 1553443232}
-  - {fileID: 1278691482}
-  - {fileID: 1090358443}
+  - {fileID: 960096481}
+  - {fileID: 2091163738}
+  - {fileID: 1553443235}
+  - {fileID: 1278691485}
+  - {fileID: 1090358446}
 --- !u!4 &945854319
 Transform:
   m_ObjectHideFlags: 0
@@ -2811,6 +2812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 960096480}
   - component: {fileID: 960096479}
+  - component: {fileID: 960096481}
   m_Layer: 0
   m_Name: Background_mountains
   m_TagString: Untagged
@@ -2881,6 +2883,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &960096481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960096478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ba2aba2aa5843499bd0ed414febf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &985664288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3109,6 +3123,17 @@ MonoBehaviour:
       - m_Target: {fileID: 932549910}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 945854318}
+        m_MethodName: ResetBackground
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3529,6 +3554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090358445}
   - component: {fileID: 1090358444}
+  - component: {fileID: 1090358446}
   m_Layer: 0
   m_Name: Background_forest_night
   m_TagString: Untagged
@@ -3599,6 +3625,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1090358446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090358443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ba2aba2aa5843499bd0ed414febf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1126205760
 GameObject:
   m_ObjectHideFlags: 0
@@ -3925,6 +3963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1278691484}
   - component: {fileID: 1278691483}
+  - component: {fileID: 1278691485}
   m_Layer: 0
   m_Name: Background_forest_afternoon
   m_TagString: Untagged
@@ -3995,6 +4034,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1278691485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278691482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ba2aba2aa5843499bd0ed414febf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1324924698
 GameObject:
   m_ObjectHideFlags: 0
@@ -4526,6 +4577,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 945854318}
+        m_MethodName: ResetBackground
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1445974436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4960,6 +5022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553443234}
   - component: {fileID: 1553443233}
+  - component: {fileID: 1553443235}
   m_Layer: 0
   m_Name: Background_forest_day
   m_TagString: Untagged
@@ -5030,6 +5093,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553443235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553443232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ba2aba2aa5843499bd0ed414febf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1576485087
 GameObject:
   m_ObjectHideFlags: 0
@@ -6761,6 +6836,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091163737}
   - component: {fileID: 2091163736}
+  - component: {fileID: 2091163738}
   m_Layer: 0
   m_Name: Background_island
   m_TagString: Untagged
@@ -6831,6 +6907,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2091163738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091163735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ba2aba2aa5843499bd0ed414febf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &190912691296333590
 Transform:
   m_ObjectHideFlags: 0

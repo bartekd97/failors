@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
             {
                 GameManager.instance.score += item.scoreReward;
                 if (GameManager.instance.score % 10 == 0)
-                    backgroundChanger.ChangeBckg();
+                    backgroundChanger.ChangeToNext();
 
             }
             else

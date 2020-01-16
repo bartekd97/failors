@@ -5,21 +5,33 @@ using UnityEngine.UI;
 
 public class ChangeBackground : MonoBehaviour
 {
-    [SerializeField] List<GameObject> backgroundList = new List<GameObject>();
-    private int actualBackground = 0;
+    public float animTime = 2.0f;
+    [SerializeField] List<Background> backgroundList = new List<Background>();
 
-    public void ChangeBckg()
+    private int currentBackground = 0;
+
+    public void ChangeToNext()
     {
-        backgroundList[actualBackground].SetActive(false);
+        //backgroundList[actualBackground].SetActive(false);
+        backgroundList[currentBackground].FadeOut(animTime);
 
-        if (actualBackground + 1 < backgroundList.Count)
-            actualBackground++;
+        if (currentBackground + 1 < backgroundList.Count)
+            currentBackground++;
         else
-            actualBackground = 0;
+            currentBackground = 0;
 
-        backgroundList[actualBackground].SetActive(true);
+        //backgroundList[currentBackground].SetActive(true);
+        backgroundList[currentBackground].Show();
+    }
 
-        
+    public void ResetBackground()
+    {
+        if (currentBackground != 0)
+        {
+            backgroundList[currentBackground].Hide();
+            currentBackground = 0;
+            backgroundList[currentBackground].Show();
+        }
     }
 }
 
