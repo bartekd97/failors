@@ -124,6 +124,9 @@ public class PlayerController : MonoBehaviour
         //spriteRenderer.sprite = availableShipTypes[currentShipIndex].sprite;
     }
 
+    [SerializeField]
+    private Sounds collectingSound;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Item item = collision.gameObject.GetComponent<Item>();
@@ -136,9 +139,13 @@ public class PlayerController : MonoBehaviour
                 if (GameManager.instance.score % 10 == 0)
                     backgroundChanger.ChangeToNext();
 
+                collectingSound.PlayGettingPointSound();
+
             }
             else
+            {
                 GameManager.instance.LoseHp();
+            }
 
             Destroy(collision.gameObject);
         }

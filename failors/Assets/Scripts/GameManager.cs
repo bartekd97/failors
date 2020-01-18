@@ -55,9 +55,15 @@ public class GameManager : MonoBehaviour
         health = hearts.Count;
     }
 
+
+    [SerializeField]
+    private Sounds failSound;
+
     public void LoseHp()
     {
         health--;
+
+        failSound.PlayFailPointSound();
 
         hearts[health].SetActive(false);
 
