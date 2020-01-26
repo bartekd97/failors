@@ -27,6 +27,12 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    private GameObject collectSplash;
+
+    [SerializeField]
+    private GameObject wrongCollectSplash;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -141,10 +147,15 @@ public class PlayerController : MonoBehaviour
 
                 collectingSound.PlayGettingPointSound();
 
+                collectSplash.transform.position = collision.transform.position;
+                collectSplash.GetComponent<ParticleSystem>()?.Play();
             }
             else
             {
                 GameManager.instance.LoseHp();
+
+                wrongCollectSplash.transform.position = collision.transform.position;
+                wrongCollectSplash.GetComponent<ParticleSystem>()?.Play();
             }
 
             Destroy(collision.gameObject);

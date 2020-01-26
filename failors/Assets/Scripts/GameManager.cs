@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
 
         hearts[health].SetActive(false);
 
-        if(PlayerPrefs.HasKey("Vibrations"))
+        if (PlayerPrefs.HasKey("Vibrations"))
         {
             if(PlayerPrefs.GetInt("Vibrations") == 1)
                 Vibration.Vibrate(200);

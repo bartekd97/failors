@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ItemDestroyer : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject itemDestroyParticleEffect;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Item item = collision.gameObject.GetComponent<Item>();
@@ -11,6 +14,9 @@ public class ItemDestroyer : MonoBehaviour
         if (item != null)
         {
             GameManager.instance.LoseHp();
+
+            itemDestroyParticleEffect.transform.position = collision.transform.position;
+            itemDestroyParticleEffect.GetComponent<ParticleSystem>()?.Play();
 
             Destroy(collision.gameObject);
         }
