@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,12 +18,101 @@ public class GameManager : MonoBehaviour
     public bool GameplayActive { get => gameplayActive; set => gameplayActive = value; }
     public bool GameOverMenuActive { get => gameOverMenuActive; set => gameOverMenuActive = value; }
 
+    public Text signerUserText;
+    public Text signedUserTextShadow;
+    public Text signInOutButtonText;
+
     private void Awake()
     {
         instance = this;
 
         SetPlayersHealth();
         Vibration.HasVibrator(); // initialize Vibration static class;
+    }
+
+    private void Start()
+    {
+        //  ADD THIS CODE BETWEEN THESE COMMENTS
+
+        // Create client configuration
+        PlayGamesClientConfiguration config = new
+            PlayGamesClientConfiguration.Builder()
+            .Build();
+
+        // Enable debugging output (recommended)
+        PlayGamesPlatform.DebugLogEnabled = true;
+
+        // Initialize and activate the platform
+        PlayGamesPlatform.InitializeInstance(config);
+        PlayGamesPlatform.Activate();
+        // END THE CODE TO PASTE INTO START
+
+        if (PlayerPrefs.HasKey("HadFirstGamesSignIn"))
+        {
+            // Try silent sign-in (second parameter is isSilent)
+            PlayGamesPlatform.Instance.Authenticate(SignInCallback, true);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("HadFirstGamesSignIn", 1);
+            // Try not-silent sign-in (second parameter is isSilent)
+            PlayGamesPlatform.Instance.Authenticate(SignInCallback, false);
+        }
+    }
+
+    public void SignInCallback(bool success)
+    {
+        if (success)
+        {
+            Debug.Log("(Play Games) Signed in!");
+
+            signInOutButtonText.text = "Sign Out";
+
+            // Show the user's name
+            signerUserText.text = Social.localUser.userName;
+            signedUserTextShadow.text = Social.localUser.userName;
+        }
+        else
+        {
+            Debug.Log("(Play Games) Sign-in failed...");
+
+            signInOutButtonText.text = "Sign In";
+
+            signerUserText.text = "Not signed in";
+            signedUserTextShadow.text = "Not signed in";
+        }
+    }
+    public void SignInOutButtonClick()
+    {
+        if (!PlayGamesPlatform.Instance.localUser.authenticated)
+        {
+            // Sign in with Play Game Services, showing the consent dialog
+            // by setting the second parameter to isSilent=false.
+            PlayGamesPlatform.Instance.Authenticate(SignInCallback, false);
+        }
+        else
+        {
+            // Sign out of play games
+            PlayGamesPlatform.Instance.SignOut();
+
+            // Reset UI
+            signInOutButtonText.text = "Sign In";
+            signerUserText.text = "Not signed in";
+            signedUserTextShadow.text = "Not signed in";
+        }
+    }
+    public void LeaderboardsButtonClick()
+    {
+        if (PlayGamesPlatform.Instance.localUser.authenticated)
+            PlayGamesPlatform.Instance.ShowLeaderboardUI();
+        else
+            PlayGamesPlatform.Instance.Authenticate(SignInCallbackLeaderboards, false);
+    }
+    public void SignInCallbackLeaderboards(bool success)
+    {
+        SignInCallback(success);
+        if (success)
+            LeaderboardsButtonClick();
     }
 
     #region Player's Health
@@ -144,6 +236,17 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighestScore", score);
             PlayerPrefs.Save();
+        }
+
+        if (PlayGamesPlatform.Instance.localUser.authenticated)
+        {
+            // Note: make sure to add 'using GooglePlayGames'
+            PlayGamesPlatform.Instance.ReportScore(score,
+                GPGSIds.leaderboard_departmentsstorm_leaderboard,
+                (bool success) =>
+                {
+                    Debug.Log("(Play Games) Leaderboard update success: " + success);
+                });
         }
     }
 
