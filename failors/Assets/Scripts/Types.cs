@@ -7,5 +7,11 @@ public enum Faculty
     // pozniej konkretne wydzialy itd
     Red,
     Green,
-    Blue
+    Blue,
+    Azure,
+    Black,
+    Orange,
+    Pink,
+    Yellow,
+    Purple
 }

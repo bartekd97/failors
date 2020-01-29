@@ -13,10 +13,16 @@ public class PlayerController : MonoBehaviour
     {
         public Faculty faculty;
         public Sprite sprite;
+        public Item item;
     }
+
     [SerializeField]
     private ChangeBackground backgroundChanger;
+
     public List<ShipType> availableShipTypes;
+
+    private ShipType[] currentGameShipTypes = new ShipType[3];
+
     public float moveSpeed = 800.0f;
 
     public Faculty currentShipFaculty { get; private set; }
@@ -27,6 +33,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
 
+    public ItemSpawner itemSpawner;
+
     [SerializeField]
     private GameObject collectSplash;
 
@@ -35,18 +43,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        //SetCurrentGameShipTypes();
+
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        currentShipIndex = 0;
-        currentShipFaculty = availableShipTypes[currentShipIndex].faculty;
-        spriteRenderer.sprite = availableShipTypes[currentShipIndex].sprite;
-
-        nextShip.sprite = availableShipTypes[currentShipIndex + 1].sprite;
-
-        if(currentShipFaculty - 1 < 0)
-            previousShip.sprite = availableShipTypes[availableShipTypes.Count - 1].sprite;
-        else
-            previousShip.sprite = availableShipTypes[currentShipIndex - 1].sprite;
     }
 
     private void Update()
@@ -98,7 +97,7 @@ public class PlayerController : MonoBehaviour
         currentShipIndex--;
 
         if (currentShipIndex < 0)
-            currentShipIndex = availableShipTypes.Count - 1;
+            currentShipIndex = currentGameShipTypes.Length - 1;
 
         Sprite activeSprite = this.spriteRenderer.sprite;
 
@@ -106,7 +105,7 @@ public class PlayerController : MonoBehaviour
         previousShip.sprite = nextShip.sprite;
         nextShip.sprite = activeSprite;
         
-        currentShipFaculty = availableShipTypes[currentShipIndex].faculty;
+        currentShipFaculty = currentGameShipTypes[currentShipIndex].faculty;
         //spriteRenderer.sprite = availableShipTypes[currentShipIndex].sprite;
     }
 
@@ -117,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
         currentShipIndex++;
 
-        if (currentShipIndex >= availableShipTypes.Count)
+        if (currentShipIndex >= currentGameShipTypes.Length)
             currentShipIndex = 0;
 
         Sprite activeSprite = this.spriteRenderer.sprite;
@@ -126,7 +125,7 @@ public class PlayerController : MonoBehaviour
         nextShip.sprite = previousShip.sprite;
         previousShip.sprite = activeSprite;
 
-        currentShipFaculty = availableShipTypes[currentShipIndex].faculty;
+        currentShipFaculty = currentGameShipTypes[currentShipIndex].faculty;
         //spriteRenderer.sprite = availableShipTypes[currentShipIndex].sprite;
     }
 
@@ -160,5 +159,34 @@ public class PlayerController : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
+    }
+
+    public void SetCurrentGameShipTypes()
+    {
+        itemSpawner.itemPrefabs.Clear();
+
+        List<ShipType> shipTypes = new List<ShipType>(availableShipTypes);
+
+        for(int i = 0; i < 3; i++)
+        {
+            currentGameShipTypes[i] = shipTypes[UnityEngine.Random.Range(0, shipTypes.Count)];
+            shipTypes.Remove(currentGameShipTypes[i]);
+
+            itemSpawner.itemPrefabs.Add(currentGameShipTypes[i].item.gameObject);
+
+            Debug.Log(currentGameShipTypes[i].faculty);
+        }
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        currentShipIndex = 0;
+        currentShipFaculty = currentGameShipTypes[currentShipIndex].faculty;
+        spriteRenderer.sprite = currentGameShipTypes[currentShipIndex].sprite;
+
+        nextShip.sprite = currentGameShipTypes[currentShipIndex + 1].sprite;
+
+        if (currentShipIndex - 1 < 0)
+            previousShip.sprite = currentGameShipTypes[currentGameShipTypes.Length - 1].sprite;
+        else
+            previousShip.sprite = currentGameShipTypes[currentShipIndex - 1].sprite;
     }
 }

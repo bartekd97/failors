@@ -856,7 +856,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 411d8eac5e285e049af464b588fba754, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 997ce7809aaa8bb40b22455a16dffcd8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -898,11 +898,33 @@ MonoBehaviour:
   availableShipTypes:
   - faculty: 0
     sprite: {fileID: 21300000, guid: 411d8eac5e285e049af464b588fba754, type: 3}
+    item: {fileID: 433760949186919406, guid: 0b2456908f45c994696792961f70b34a, type: 3}
   - faculty: 1
     sprite: {fileID: 21300000, guid: 8273fd7d9d4a9ab43a76cdabb026c6ee, type: 3}
+    item: {fileID: 7667791318121765301, guid: 3eb98a3fdc8868546bae706ccd5bc47a, type: 3}
   - faculty: 2
-    sprite: {fileID: 21300000, guid: dc325c12dba384b49a4e90eda17fb90e, type: 3}
+    sprite: {fileID: 21300000, guid: 3add965c704d311408e9b29e46144d24, type: 3}
+    item: {fileID: 4315301677712131781, guid: d8e46d9c7ebd03345a77a513a0fccaf8, type: 3}
+  - faculty: 3
+    sprite: {fileID: 21300000, guid: c5af11a4b8bc8b443ac426423ae2d520, type: 3}
+    item: {fileID: 5956720161847239042, guid: a4d561bb4975a9646b7d993c6ba71876, type: 3}
+  - faculty: 4
+    sprite: {fileID: 21300000, guid: a4fa479362bbfdb45b2e3b38f2ba7940, type: 3}
+    item: {fileID: 5947018933743468034, guid: 0a006b833e37fae4fbdddbe8655c73be, type: 3}
+  - faculty: 5
+    sprite: {fileID: 21300000, guid: c138454acc129b747ae1292a08b12479, type: 3}
+    item: {fileID: 6542384651071298247, guid: 8ec22acc9deed214485fef27552a7199, type: 3}
+  - faculty: 6
+    sprite: {fileID: 21300000, guid: 135205b8332be994aacb79ebad2b6bd2, type: 3}
+    item: {fileID: 2576642396925834509, guid: 94268d6be8962f442ac7047774b90ced, type: 3}
+  - faculty: 7
+    sprite: {fileID: 21300000, guid: c76f833b0ce391f48b9685080bd69d07, type: 3}
+    item: {fileID: 7326852046463910177, guid: 39f2ce6c2bdb0864688a6e9ab4b96140, type: 3}
+  - faculty: 8
+    sprite: {fileID: 21300000, guid: 545617a47d7e8014a85024e967d34414, type: 3}
+    item: {fileID: 4231142652222820488, guid: edefb480ed8df27419a58a7e21e0f536, type: 3}
   moveSpeed: 800
+  itemSpawner: {fileID: 1774785892}
   collectSplash: {fileID: 3017975552844624157}
   wrongCollectSplash: {fileID: 1925058057}
   previousShip: {fileID: 131250204}
@@ -3386,6 +3408,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 140845857}
+        m_MethodName: set_sprite
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 21300000, guid: 997ce7809aaa8bb40b22455a16dffcd8,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8001,6 +8035,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 140845857}
+        m_MethodName: set_sprite
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 21300000, guid: 997ce7809aaa8bb40b22455a16dffcd8,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

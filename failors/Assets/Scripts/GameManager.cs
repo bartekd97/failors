@@ -204,6 +204,7 @@ public class GameManager : MonoBehaviour
     public void PlayAgain()
     {
         playerController.enabled = true;
+        playerController.SetCurrentGameShipTypes();
 
         score = 0;
 
