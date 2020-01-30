@@ -13,5 +13,7 @@ public enum Faculty
     Orange,
     Pink,
     Yellow,
-    Purple
+    Purple,
+    BOMB,
+    ANY
 }

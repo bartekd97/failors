@@ -23,6 +23,14 @@ public class ItemSpawner : MonoBehaviour
 
     public List<GameObject> itemPrefabs;
 
+    [SerializeField]
+    private List<GameObject> additionalItemPrefabs = new List<GameObject>();
+
+    private int spawnedItems = 0;
+
+    [SerializeField]
+    private int newItemCheckpoint = 30;
+
     float nextSpawnTime;
 
     public void StartSpawningItems()
@@ -39,13 +47,30 @@ public class ItemSpawner : MonoBehaviour
 
             GameObject prefab = itemPrefabs[Random.Range(0, itemPrefabs.Count)];
             float spawnX = Random.Range(minX, maxY);
-            GameObject spawned = Instantiate(prefab, new Vector3(spawnX, startY, 0.0f), Quaternion.identity);
+            GameObject spawned;
+
+            //10% chance to spawn additional item
+            if (spawnedItems > newItemCheckpoint * 2 && Random.Range(0, 10) == 0)
+            {
+                spawned = Instantiate(additionalItemPrefabs[1].gameObject, new Vector3(spawnX, startY, 0.0f), Quaternion.identity);
+            }
+            else if (spawnedItems > newItemCheckpoint && Random.Range(0, 10) == 0)
+            {
+                spawned = Instantiate(additionalItemPrefabs[0].gameObject, new Vector3(spawnX, startY, 0.0f), Quaternion.identity);
+            }
+            else
+            {
+                spawned = Instantiate(prefab, new Vector3(spawnX, startY, 0.0f), Quaternion.identity);
+            }
+
             Item item = spawned.GetComponent<Item>();
             item.speed = itemsSpeed;
 
             spawned.transform.parent = spawnedItemsContainer.transform;
 
             nextSpawnTime *= spawnTimeFactor;
+
+            spawnedItems++;
         }
         Invoke("SpawnNextItem", nextSpawnTime);
     }

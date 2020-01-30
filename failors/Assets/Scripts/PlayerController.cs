@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject wrongCollectSplash;
 
+    [SerializeField]
+    private GameObject explosion;
+
     private void Awake()
     {
         //SetCurrentGameShipTypes();
@@ -138,7 +141,7 @@ public class PlayerController : MonoBehaviour
         
         if (item != null)
         {
-            if (item.possibleFaculties.Contains(currentShipFaculty))
+            if (item.possibleFaculties.Contains(currentShipFaculty) || item.possibleFaculties[0] == Faculty.ANY)
             {
                 GameManager.instance.score += item.scoreReward;
                 if (GameManager.instance.score % 10 == 0)
@@ -153,8 +156,16 @@ public class PlayerController : MonoBehaviour
             {
                 GameManager.instance.LoseHp();
 
-                wrongCollectSplash.transform.position = collision.transform.position;
-                wrongCollectSplash.GetComponent<ParticleSystem>()?.Play();
+                if(item.possibleFaculties[0] != Faculty.BOMB)
+                {
+                    wrongCollectSplash.transform.position = collision.transform.position;
+                    wrongCollectSplash.GetComponent<ParticleSystem>()?.Play();
+                }
+                else
+                {
+                    explosion.transform.position = collision.transform.position;
+                    explosion.GetComponent<ParticleSystem>()?.Play();
+                }
             }
 
             Destroy(collision.gameObject);
