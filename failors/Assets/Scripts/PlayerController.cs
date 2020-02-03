@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject explosion;
 
+    [SerializeField]
+    private GameObject collectStar;
+
     private void Awake()
     {
         //SetCurrentGameShipTypes();
@@ -151,20 +154,28 @@ public class PlayerController : MonoBehaviour
 
                 collectingSound.PlayGettingPointSound();
 
-                collectSplash.transform.position = collision.transform.position;
-                collectSplash.GetComponent<ParticleSystem>()?.Play();
+                if(item.possibleFaculties[0] == Faculty.ANY)
+                {
+                    collectStar.transform.position = collision.transform.position;
+                    collectStar.GetComponent<ParticleSystem>()?.Play();
+                }
+                else
+                {
+                    collectSplash.transform.position = collision.transform.position;
+                    collectSplash.GetComponent<ParticleSystem>()?.Play();
+                }
             }
             else
             {
-                GameManager.instance.LoseHp();
-
                 if(item.possibleFaculties[0] != Faculty.BOMB)
                 {
+                    GameManager.instance.LoseHp(false);
                     wrongCollectSplash.transform.position = collision.transform.position;
                     wrongCollectSplash.GetComponent<ParticleSystem>()?.Play();
                 }
                 else
                 {
+                    GameManager.instance.LoseHp(true); ;
                     explosion.transform.position = collision.transform.position;
                     explosion.GetComponent<ParticleSystem>()?.Play();
                 }
