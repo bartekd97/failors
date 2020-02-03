@@ -143,8 +143,10 @@ public class PlayerController : MonoBehaviour
         {
             if (item.possibleFaculties.Contains(currentShipFaculty) || item.possibleFaculties[0] == Faculty.ANY)
             {
+                int scoreBefore = GameManager.instance.score;
                 GameManager.instance.score += item.scoreReward;
-                if (GameManager.instance.score % 10 == 0)
+                int scoreAfter = GameManager.instance.score;
+                if ((scoreBefore / 10) != (scoreAfter / 10) && scoreBefore != 0)
                     backgroundChanger.ChangeToNext();
 
                 collectingSound.PlayGettingPointSound();

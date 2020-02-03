@@ -36,6 +36,7 @@ public class ItemSpawner : MonoBehaviour
     public void StartSpawningItems()
     {
         nextSpawnTime = basicSpawnTime;
+        spawnedItems = 0;
         Invoke("SpawnNextItem", nextSpawnTime);
     }
 
