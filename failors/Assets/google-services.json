@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "506138541231",
+    "firebase_url": "https://departments-storm.firebaseio.com",
+    "project_id": "departments-storm",
+    "storage_bucket": "departments-storm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506138541231:android:fb89f6b45ee312c8bae85a",
+        "android_client_info": {
+          "package_name": "pl.ftims.failors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506138541231-apl688mnjd99fttss8qp3pngk5gt6k0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwl9oRM5Vt8LmoEa2CWjC1Ss8H2UddMI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506138541231-apl688mnjd99fttss8qp3pngk5gt6k0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
