@@ -238,9 +238,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Text scoreText, highestScoreText;
 
+    [SerializeField]
+    private GameObject newRecord;
+
     private void CheckPlayerScore()
     {
-        if(PlayerPrefs.HasKey("HighestScore"))
+        if (score > PlayerPrefs.GetInt("HighestScore"))
+        {
+            newRecord.SetActive(true);
+        }
+
+        if (PlayerPrefs.HasKey("HighestScore"))
         {
             if(PlayerPrefs.GetInt("HighestScore") < score)
             {
