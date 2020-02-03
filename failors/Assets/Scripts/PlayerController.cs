@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
         public Sprite sprite;
         public Item item;
     }
+    [Serializable]
+    public class BlockGroup
+    {
+        public List<Faculty> group;
+    }
 
     [SerializeField]
     private ChangeBackground backgroundChanger;
@@ -26,6 +31,9 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 800.0f;
 
     public Faculty currentShipFaculty { get; private set; }
+
+
+    public List<BlockGroup> blockedColorsTogether;
 
     float currentSpeed = 0;
 
@@ -195,6 +203,16 @@ public class PlayerController : MonoBehaviour
         {
             currentGameShipTypes[i] = shipTypes[UnityEngine.Random.Range(0, shipTypes.Count)];
             shipTypes.Remove(currentGameShipTypes[i]);
+            foreach (var blockGroup in blockedColorsTogether)
+            {
+                if (blockGroup.group.Contains(currentGameShipTypes[i].faculty))
+                {
+                    foreach (var blockedFaculty in blockGroup.group)
+                    {
+                        shipTypes.Remove(shipTypes.Find(st => st.faculty == blockedFaculty));
+                    }
+                }
+            }
 
             itemSpawner.itemPrefabs.Add(currentGameShipTypes[i].item.gameObject);
 

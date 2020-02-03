@@ -236,7 +236,7 @@ public class GameManager : MonoBehaviour
     #region Player's Score
 
     [SerializeField]
-    private Text scoreText, highestScoreText;
+    private Text scoreText, scoreTextShadow, highestScoreText, highestScoreTextShadow;
 
     [SerializeField]
     private GameObject newRecord;
@@ -292,7 +292,9 @@ public class GameManager : MonoBehaviour
     private void ShowPlayerScore()
     {
         scoreText.text = score.ToString();
+        scoreTextShadow.text = score.ToString();
         highestScoreText.text = PlayerPrefs.GetInt("HighestScore").ToString();
+        highestScoreTextShadow.text = PlayerPrefs.GetInt("HighestScore").ToString();
     }
 
     #endregion
