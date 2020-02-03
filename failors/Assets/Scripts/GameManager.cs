@@ -248,6 +248,19 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.Save();
         }
 
+        if(PlayerPrefs.HasKey("TotalScore"))
+        {
+            PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") + score);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("TotalScore", score);
+            PlayerPrefs.Save();
+        }
+
+        SkinsManager.instance.UpdateSkinsStatus();
+
         if (PlayGamesPlatform.Instance.localUser.authenticated)
         {
             // Note: make sure to add 'using GooglePlayGames'
