@@ -14,7 +14,7 @@ public class ItemDestroyer : MonoBehaviour
         if (item != null)
         {
             if (item.possibleFaculties[0] != Faculty.BOMB && item.possibleFaculties[0] != Faculty.ANY)
-                GameManager.instance.LoseHp();
+                GameManager.instance.LoseHp(false);
 
             itemDestroyParticleEffect.transform.position = collision.transform.position;
             itemDestroyParticleEffect.GetComponent<ParticleSystem>()?.Play();

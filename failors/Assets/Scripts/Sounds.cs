@@ -12,6 +12,7 @@ public class Sounds : MonoBehaviour
     public AudioClip fail;
 
     public AudioClip[] coins;
+    public AudioClip bomb;
 
     private void Awake()
     {
@@ -43,6 +44,12 @@ public class Sounds : MonoBehaviour
             audioSource.clip = coins[Random.Range(0, coins.Length)];
             PlaySound();
         }
+    }
+
+    public void PlayBombSound()
+    {
+        audioSource.clip = bomb;
+        PlaySound();
     }
 
     public void PlayFailPointSound()

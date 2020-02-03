@@ -160,11 +160,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Sounds failSound;
 
-    public void LoseHp()
+    [SerializeField]
+    private Sounds bombSound;
+
+    public void LoseHp(bool bombExploded)
     {
         health--;
 
-        failSound.PlayFailPointSound();
+        if (bombExploded)
+            bombSound.PlayBombSound();
+        else
+            failSound.PlayFailPointSound();
 
         hearts[health].SetActive(false);
 
