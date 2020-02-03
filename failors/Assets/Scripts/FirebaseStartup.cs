@@ -10,11 +10,10 @@ public class FirebaseStartup : MonoBehaviour
     //public static FirebaseDatabase DatabaseApp { get; private set; }
     public static DatabaseReference DatabaseReference { get; private set; }
 
-    public UnityEngine.Events.UnityEvent onFirebaseLoaded;
-    
-    private async void Start()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void Setup()
     {
-        var dependencyStatus = await FirebaseApp.CheckDependenciesAsync();
+        var dependencyStatus = FirebaseApp.CheckDependencies();
         if (dependencyStatus == Firebase.DependencyStatus.Available)
         {
             Debug.Log("Firebase is ready to use");
@@ -28,7 +27,7 @@ public class FirebaseStartup : MonoBehaviour
             //Debug.Log("onFirebaseLoaded.Invoke();");
             //Debug.Log(onFirebaseLoaded.GetPersistentMethodName(0));
             //onFirebaseLoaded.Invoke();
-            Invoke("InvokeInMainThread", 0.2f);
+            //Invoke("InvokeInMainThread", 0.2f);
         }
         else
         {
@@ -64,9 +63,11 @@ public class FirebaseStartup : MonoBehaviour
         */
     }
 
+    /*
     private void InvokeInMainThread()
     {
         //Debug.Log("onFirebaseLoaded.Invoke();");
         onFirebaseLoaded.Invoke();
     }
+    */
 }

@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     public Text signedUserTextShadow;
     public Text signInOutButtonText;
 
+    public DepartmentsRanking departmentsRanking;
+    public Button buttonOpenerDepartmentChooser;
+
     private void Awake()
     {
         instance = this;
@@ -80,6 +83,12 @@ public class GameManager : MonoBehaviour
 
             signerUserText.text = "Not signed in";
             signedUserTextShadow.text = "Not signed in";
+        }
+
+        if (!PlayerPrefs.HasKey("HadFirstDepartmenChooseAsk"))
+        {
+            PlayerPrefs.SetInt("HadFirstDepartmenChooseAsk", 1);
+            buttonOpenerDepartmentChooser.onClick.Invoke();
         }
     }
     public void SignInOutButtonClick()
@@ -249,6 +258,8 @@ public class GameManager : MonoBehaviour
                     Debug.Log("(Play Games) Leaderboard update success: " + success);
                 });
         }
+
+        departmentsRanking.AddScoreToMyDepartmentIfCan(score);
     }
 
     private void ShowPlayerScore()

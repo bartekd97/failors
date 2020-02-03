@@ -9,9 +9,14 @@ public class DepartmentsRanking : MonoBehaviour
     public class DepartmentRow : IComparable<DepartmentRow>
     {
         public string name;
+        public string niceName;
         public RectTransform row;
         public Text scoreCounter;
+        public Sprite iconSprite;
         public int currentScore = 0;
+
+        [HideInInspector]
+        public int lastScore = 0;
 
         [HideInInspector]
         public Coroutine posCoro = null;
@@ -58,9 +63,18 @@ public class DepartmentsRanking : MonoBehaviour
 
     public DepartmentRow[] departments;
 
-    public void OnFirebaseLoaded()
+    public List<GameObject> noDepartmentControls;
+    public List<GameObject> yesDepartmentControls;
+    public Image currentDepartmentBackground;
+    public Image currentDepartmentLogo;
+    public Text currentDepartmentName;
+
+    public float noDepartmentRowAlpha = 0.75f;
+    public float myDepartmentRowAlpha = 1.0f;
+    public float theirDepartmentRowAlpha = 0.5f;
+
+    private void Start()
     {
-        //Debug.Log("OnFirebaseLoaded()");
         foreach (var dep in departments)
         {
             //Debug.Log("setup " + dep.name + "    " + FirebaseStartup.DatabaseReference.Child("departmentsRanking").Child(dep.name).ToString());
@@ -90,12 +104,76 @@ public class DepartmentsRanking : MonoBehaviour
 
             tmp[i].posCoro = StartCoroutine(animYPos(tmp[i], tmp[i].row.localPosition.y, startPosY + fullRowHeight * i));
             tmp[i].lengthCoro = StartCoroutine(animLength(tmp[i], tmp[i].row.sizeDelta.x, targetLength));
-            tmp[i].scoreCoro = StartCoroutine(animScore(tmp[i], int.Parse(tmp[i].scoreCounter.text), tmp[i].currentScore));
+            tmp[i].scoreCoro = StartCoroutine(animScore(tmp[i], tmp[i].lastScore, tmp[i].currentScore));
         }
     }
     public void AnimUpdateBarsDelayed(float delay)
     {
         Invoke("AnimUpdateBars", delay);
+    }
+
+    public void ChooseDepartment(string name)
+    {
+        PlayerPrefs.SetString("ChoosenDepartment", name);
+        PlayerPrefs.Save();
+        UpdateCurrentDepartment();
+    }
+
+    public void UpdateCurrentDepartment()
+    {
+        if (PlayerPrefs.HasKey("ChoosenDepartment"))
+        {
+            string depName = PlayerPrefs.GetString("ChoosenDepartment");
+            noDepartmentControls.ForEach(c => c.SetActive(false));
+            foreach (var dep in departments)
+            {
+                if (dep.name == depName)
+                {
+                    yesDepartmentControls.ForEach(c => c.SetActive(true));
+
+                    Color rc = dep.row.GetComponent<Image>().color;
+                    rc.a = myDepartmentRowAlpha;
+                    dep.row.GetComponent<Image>().color = rc;
+
+                    currentDepartmentBackground.color = rc;
+                    currentDepartmentLogo.sprite = dep.iconSprite;
+                    currentDepartmentName.text = dep.niceName;
+                }
+                else
+                {
+                    Color rc = dep.row.GetComponent<Image>().color;
+                    rc.a = theirDepartmentRowAlpha;
+                    dep.row.GetComponent<Image>().color = rc;
+                }
+            }
+        }
+        else
+        {
+            noDepartmentControls.ForEach(c => c.SetActive(true));
+            yesDepartmentControls.ForEach(c => c.SetActive(false));
+            foreach (var dep in departments)
+            {
+                Color rc = dep.row.GetComponent<Image>().color;
+                rc.a = noDepartmentRowAlpha;
+                dep.row.GetComponent<Image>().color = rc;
+            }
+        }
+    }
+
+    public void AddScoreToMyDepartmentIfCan(int score)
+    {
+        if (FirebaseStartup.DatabaseReference == null)
+            return;
+
+        if (PlayerPrefs.HasKey("ChoosenDepartment"))
+        {
+            string depName = PlayerPrefs.GetString("ChoosenDepartment");
+            FirebaseStartup.DatabaseReference.Child("departmentsRanking").Child(depName).RunTransaction(mutableData => {
+                int currentScore = int.Parse(mutableData.Value.ToString());
+                mutableData.Value = currentScore + score;
+                return Firebase.Database.TransactionResult.Success(mutableData);
+            });
+        }
     }
 
     IEnumerator animYPos(DepartmentRow dep, float from, float to)
@@ -136,15 +214,17 @@ public class DepartmentsRanking : MonoBehaviour
 
     IEnumerator animScore(DepartmentRow dep, int from, int to)
     {
-        dep.scoreCounter.text = String.Format("{0:n0}", from);
+
+        dep.scoreCounter.text = String.Format("{0:N0}", from);
         float dt = 0.0f;
         while (dt < animTime)
         {
-            dep.scoreCounter.text = String.Format("{0:n0}", Mathf.RoundToInt(Mathf.SmoothStep((float)from, (float)to, dt / animTime)));
+            dep.scoreCounter.text = String.Format("{0:N0}", Mathf.RoundToInt(Mathf.SmoothStep((float)from, (float)to, dt / animTime)));
             yield return new WaitForEndOfFrame();
             dt += Time.deltaTime;
         }
-        dep.scoreCounter.text = String.Format("{0:n0}", to);
+        dep.scoreCounter.text = String.Format("{0:N0}", to);
+        dep.lastScore = to;
         dep.scoreCoro = null;
     }
 }
