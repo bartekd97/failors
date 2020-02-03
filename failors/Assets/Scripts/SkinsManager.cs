@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkinsManager : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class SkinsManager : MonoBehaviour
 
     [SerializeField]
     private SpriteRenderer skinRenderer;
+
+    [SerializeField]
+    private Image nextSkinRenderer;
+
+    [SerializeField]
+    private Image previousSkinRenderer;
 
     public Skin ActiveSkin { get => activeSkin; }
 
@@ -70,6 +77,8 @@ public class SkinsManager : MonoBehaviour
                     activeSkin = skin;
 
                     skinRenderer.sprite = activeSkin.SkinSprite;
+                    nextSkinRenderer.sprite = activeSkin.SkinSprite;
+                    previousSkinRenderer.sprite = activeSkin.SkinSprite;
                 }
             }
         }
@@ -82,6 +91,8 @@ public class SkinsManager : MonoBehaviour
         activeSkin = skin;
 
         skinRenderer.sprite = activeSkin.SkinSprite;
+        nextSkinRenderer.sprite = activeSkin.SkinSprite;
+        previousSkinRenderer.sprite = activeSkin.SkinSprite;
 
         PlayerPrefs.SetString("activeskin", skin.name);
         PlayerPrefs.Save();
