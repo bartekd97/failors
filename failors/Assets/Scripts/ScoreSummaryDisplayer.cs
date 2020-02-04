@@ -41,7 +41,7 @@ public class ScoreSummaryDisplayer : MonoBehaviour
 
         hiscoreText.text = "High Score: " + highScore.ToString("N0");
         hiscoreTextShadow.text = "High Score: " + highScore.ToString("N0");
-        totalText.text = "Total: " + highScore.ToString("N0");
-        totalTextShadow.text = "Total: " + highScore.ToString("N0");
+        totalText.text = "Total: " + totalScore.ToString("N0");
+        totalTextShadow.text = "Total: " + totalScore.ToString("N0");
     }
 }
