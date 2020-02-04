@@ -44,10 +44,10 @@ public class Skin : MonoBehaviour
                     PlayerPrefs.Save();
                 }
                 else
-                    description.text = "Get " + PlayerPrefs.GetInt("TotalScore") + "/" + pointCondition + " points in total!";
+                    description.text = "Get " + pointCondition.ToString("N0") + " points\nin total";
             }
             else
-                description.text = "Get " + "0/" + pointCondition + " points in total!";
+                description.text = "Get " + pointCondition.ToString("N0") + " points\nin total";
         }
         else if(conditionType == SKINCONDITIONTYPE.pointsRecord)
         {
@@ -61,10 +61,10 @@ public class Skin : MonoBehaviour
                     PlayerPrefs.Save();
                 }
                 else
-                    description.text = "Get " + pointCondition + " or more in one game!"; 
+                    description.text = "Get " + pointCondition.ToString("N0") + " points\nin one game"; 
             }
             else
-                description.text = "Get " + pointCondition + " or more in one game!";
+                description.text = "Get " + pointCondition.ToString("N0") + " points\nin one game";
         }
     }
 
@@ -93,6 +93,7 @@ public class Skin : MonoBehaviour
         description.gameObject.SetActive(false);
 
         spritePreview.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public void SetAsActive()
